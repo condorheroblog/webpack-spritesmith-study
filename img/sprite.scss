@@ -1,0 +1,123 @@
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
+$dangyuezongchanzhi-2x-name: 'dangyuezongchanzhi_2x';
+$dangyuezongchanzhi-2x-x: 0px;
+$dangyuezongchanzhi-2x-y: 0px;
+$dangyuezongchanzhi-2x-offset-x: 0px;
+$dangyuezongchanzhi-2x-offset-y: 0px;
+$dangyuezongchanzhi-2x-width: 120px;
+$dangyuezongchanzhi-2x-height: 120px;
+$dangyuezongchanzhi-2x-total-width: 260px;
+$dangyuezongchanzhi-2x-total-height: 260px;
+$dangyuezongchanzhi-2x-image: '~sprite.png';
+$dangyuezongchanzhi-2x: (0px, 0px, 0px, 0px, 120px, 120px, 260px, 260px, '~sprite.png', 'dangyuezongchanzhi_2x', );
+$huanchancishu-2x-name: 'huanchancishu_2x';
+$huanchancishu-2x-x: 140px;
+$huanchancishu-2x-y: 0px;
+$huanchancishu-2x-offset-x: -140px;
+$huanchancishu-2x-offset-y: 0px;
+$huanchancishu-2x-width: 120px;
+$huanchancishu-2x-height: 120px;
+$huanchancishu-2x-total-width: 260px;
+$huanchancishu-2x-total-height: 260px;
+$huanchancishu-2x-image: '~sprite.png';
+$huanchancishu-2x: (140px, 0px, -140px, 0px, 120px, 120px, 260px, 260px, '~sprite.png', 'huanchancishu_2x', );
+$img-name: 'img';
+$img-x: 0px;
+$img-y: 140px;
+$img-offset-x: 0px;
+$img-offset-y: -140px;
+$img-width: 120px;
+$img-height: 120px;
+$img-total-width: 260px;
+$img-total-height: 260px;
+$img-image: '~sprite.png';
+$img: (0px, 140px, 0px, -140px, 120px, 120px, 260px, 260px, '~sprite.png', 'img', );
+$maolirun-2x-name: 'maolirun_2x';
+$maolirun-2x-x: 140px;
+$maolirun-2x-y: 140px;
+$maolirun-2x-offset-x: -140px;
+$maolirun-2x-offset-y: -140px;
+$maolirun-2x-width: 120px;
+$maolirun-2x-height: 120px;
+$maolirun-2x-total-width: 260px;
+$maolirun-2x-total-height: 260px;
+$maolirun-2x-image: '~sprite.png';
+$maolirun-2x: (140px, 140px, -140px, -140px, 120px, 120px, 260px, 260px, '~sprite.png', 'maolirun_2x', );
+$spritesheet-width: 260px;
+$spritesheet-height: 260px;
+$spritesheet-image: '~sprite.png';
+$spritesheet-sprites: ($dangyuezongchanzhi-2x, $huanchancishu-2x, $img, $maolirun-2x, );
+$spritesheet: (260px, 260px, '~sprite.png', $spritesheet-sprites, );
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}

@@ -1,0 +1,24 @@
+# dependencies
+/node_modules
+
+# production
+/build
+
+# css
+*.css
+
+/.vscode
+
+.DS_Store
+
+# logs
+/logs
+
+# map
+*.css.map
+
+# idea
+*.idea/
+
+#.env PORT
+*.env
